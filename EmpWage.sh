@@ -2,24 +2,21 @@
 echo "Welcome to the Employee Wage program"
 WagePerHr=20
 DailyEmpWage=0
-fulltime=1
-parttime=2
+Fulltime=1
+Halftime=2
 absent=0
 empHr=0
 empcheck=$(($RANDOM%3))
-if [[ $empcheck -eq $fulltime ]]
-then
+case $empcheck in 
+$Fulltime)
 echo "Employee is present for full time"
-empHr=8
-elif [[ $empcheck -eq $parttime ]]
-then
-echo "Employee is present for part time"
-empHr=4
-elif [[ $empcheck -eq $absent ]]
-then
+empHr=8 ;;
+$Halftime)
+echo "Employee is present for half time"
+empHr=4 ;;
+*)
 echo "Employee is absent"
-empHr=0
-fi
-
+empHr=0 ;;
+esac
 DailyEmpWage=$(($empHr*$WagePerHr))
 echo "Daily Employee Wage=" $DailyEmpWage
