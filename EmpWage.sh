@@ -7,23 +7,32 @@ Fulltime=1
 Halftime=2
 absent=0
 empHr=0
-for (( i=1; i<=20; i++ ))
+totalworkinghours=0
+totalworkingdays=0
+while [[ $totalworkingdays -lt 20 && $totalworkinghours -lt 100 ]]
 do
-echo "Day $i"
 empcheck=$(($RANDOM%3))
 case $empcheck in
 $Fulltime)
 echo "Employee is present for full time"
-empHr=8 ;;
+totalworkingdays=$(($totalworkingdays+1))
+empHr=8
+totalworkinghours=$(($totalworkinghours+empHr)) ;;
 $Halftime)
 echo "Employee is present for half time"
-empHr=4 ;;
+totalworkingdays=$(($totalworkingdays+1))
+empHr=4 
+totalworkinghours=$(($totalworkinghours+empHr)) ;;
 *)
 echo "Employee is absent"
-empHr=0 ;;
+totalworkingdays=$(($totalworkingdays+1))
+empHr=0 
+totalworkinghours=$(($totalworkinghours+empHr)) ;;
 esac
 DailyEmpWage=$(($empHr*$WagePerHr))
-echo "Day $i  Wage=" $DailyEmpWage
+echo "Day "$totalworkingdays"  Wage=" $DailyEmpWage
 totalMonthWage=$(($totalMonthWage+$DailyEmpWage))
 done
 echo "Total Monthly Wage=" $totalMonthWage
+echo "Total Working Days=" $totalworkingdays
+echo "Total Working Hours=" $totalworkinghours
