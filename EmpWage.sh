@@ -1,12 +1,15 @@
 #!/bin/bash 
 echo "Welcome to the Employee Wage program"
+WagePerHr=20
+DailyEmpWage=0
+declare -A DailyWage;
+totalMonthWage=0
 Fulltime=1
 Halftime=2
 absent=0
 empHr=0
 totalworkingdays=0
-totalworkinghours=0
-echo "Day  Working Hours"
+echo "Day" "DailyWage" "Total Monthly Wage"
 while [[ $totalworkingdays -lt 20 && $totalworkinghours -lt 100 ]]
 do
 empcheck=$(($RANDOM%3))
@@ -24,7 +27,12 @@ totalworkingdays=$(($totalworkingdays+1))
 empHr=0
 totalworkinghours=$(($totalworkinghours+empHr)) ;;
 esac
-echo "$totalworkingdays" "$empHr" 
-done
 
+DailyEmpWage=$(($empHr*$WagePerHr))
+DailyWage["Day " $totalworkingdays]=$DailyEmpWage
+totalMonthWage=$(($totalMonthWage+$DailyEmpWage))
+echo "$totalworkingdays" "$DailyEmpWage" "$totalMonthWage"
+done
+echo "Total Monthly Wage=" $totalMonthWage
+echo "Total Working Days=" $totalworkingdays
 echo "Total Working Hours=" $totalworkinghours
